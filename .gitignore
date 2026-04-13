@@ -1,0 +1,30 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Test images (keep repo lightweight)
+test-images/
+*.png
+*.jpg
+*.jpeg
+*.tiff
+*.bmp
+
+# Model files (baked into Docker image, not in repo)
+*.gguf
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Docker
+docker-compose.override.yml
