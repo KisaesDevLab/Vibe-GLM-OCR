@@ -1,0 +1,28 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+LICENSE
+docs/
+
+# CI/CD
+.github/
+
+# Test files
+test-images/
+tests/
+*.png
+*.jpg
+*.jpeg
+*.tiff
+*.bmp
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

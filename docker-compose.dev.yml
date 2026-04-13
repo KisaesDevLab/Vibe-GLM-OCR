@@ -1,0 +1,7 @@
+services:
+  ocr-server:
+    build: .
+    ports:
+      - "8090:8090"
+    environment:
+      OCR_THREADS: "4"
