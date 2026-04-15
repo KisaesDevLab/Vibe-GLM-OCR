@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential cmake git ca-certificates libcurl4-openssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
-ARG LLAMA_CPP_VERSION=master
+ARG LLAMA_CPP_VERSION=b8802
 RUN git clone --depth 1 --branch ${LLAMA_CPP_VERSION} \
     https://github.com/ggml-org/llama.cpp.git /build/llama.cpp
 

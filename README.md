@@ -178,6 +178,54 @@ docker run -p 9090:9090 \
 
 F16 is chosen for the decoder because at only 0.9B parameters, the size difference vs Q8_0 is negligible, while F16 preserves full precision for financial documents where a single misread digit matters.
 
+### Slim variant (Q8_0 decoder)
+
+For bandwidth-constrained deployments, a `:slim` tag using the Q8_0 decoder (~950 MB vs 1.79 GB) reduces the compressed image by roughly 700 MB. Accuracy loss is minimal for printed documents; for handwritten notes or faint scans, stick with the default F16 tag.
+
+```bash
+docker pull ghcr.io/kisaesdevlab/kisaes-ocr-server:slim
+```
+
+To build slim locally, override the decoder filename in a fork of the Dockerfile's `model-fetcher` stage (`GLM-OCR-Q8_0.gguf`) and update the entrypoint's `--model` path.
+
+## Operations
+
+### Log rotation
+
+`llama-server` logs request lines and token counts to stdout. Under sustained traffic, unbounded Docker logs will eventually fill the host disk. Configure the `json-file` driver with rotation, or switch to `journald` / a remote syslog sink.
+
+Per-container (Docker CLI):
+
+```bash
+docker run -p 8090:8090 \
+  --log-driver json-file \
+  --log-opt max-size=50m \
+  --log-opt max-file=5 \
+  ghcr.io/kisaesdevlab/kisaes-ocr-server:latest
+```
+
+Compose:
+
+```yaml
+services:
+  ocr-server:
+    image: ghcr.io/kisaesdevlab/kisaes-ocr-server:latest
+    logging:
+      driver: json-file
+      options:
+        max-size: "50m"
+        max-file: "5"
+```
+
+Host-wide default lives in `/etc/docker/daemon.json`:
+
+```json
+{
+  "log-driver": "json-file",
+  "log-opts": { "max-size": "50m", "max-file": "5" }
+}
+```
+
 ## License
 
 BSL 1.1 (Dockerfile, entrypoint scripts, and repository code). GLM-OCR model is MIT licensed. llama.cpp is MIT licensed.
