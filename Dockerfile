@@ -32,7 +32,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 RUN hf download ggml-org/GLM-OCR-GGUF \
-    GLM-OCR-F16.gguf mmproj-GLM-OCR-Q8_0.gguf \
+    GLM-OCR-f16.gguf mmproj-GLM-OCR-Q8_0.gguf \
     --local-dir /models
 
 # ============================================================
@@ -49,7 +49,7 @@ COPY --from=builder /build/llama.cpp/build/bin/llama-server /usr/local/bin/llama
 COPY --from=builder /build/llama.cpp/build/bin/llama-cli /usr/local/bin/llama-cli
 
 # Copy model files (baked into image)
-COPY --from=model-fetcher /models/GLM-OCR-F16.gguf /models/GLM-OCR-F16.gguf
+COPY --from=model-fetcher /models/GLM-OCR-f16.gguf /models/GLM-OCR-f16.gguf
 COPY --from=model-fetcher /models/mmproj-GLM-OCR-Q8_0.gguf /models/mmproj-GLM-OCR-Q8_0.gguf
 
 # Copy entrypoint

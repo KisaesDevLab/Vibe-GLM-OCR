@@ -10,7 +10,7 @@ PARALLEL="${OCR_PARALLEL:-2}"
 API_KEY="${OCR_API_KEY:-}"
 
 ARGS=(
-    --model /models/GLM-OCR-F16.gguf
+    --model /models/GLM-OCR-f16.gguf
     --mmproj /models/mmproj-GLM-OCR-Q8_0.gguf
     --host 0.0.0.0
     --port "$PORT"
