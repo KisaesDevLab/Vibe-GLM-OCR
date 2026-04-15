@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && pip3 install --break-system-packages huggingface_hub \
     && rm -rf /var/lib/apt/lists/*
 
-RUN huggingface-cli download ggml-org/GLM-OCR-GGUF \
+RUN hf download ggml-org/GLM-OCR-GGUF \
     GLM-OCR-F16.gguf mmproj-GLM-OCR-Q8_0.gguf \
     --local-dir /models
 
