@@ -38,7 +38,7 @@ curl http://localhost:8090/health
 |----------|---------|-------------|
 | `OCR_PORT` | `8090` | Server listen port |
 | `OCR_THREADS` | `4` | CPU threads for inference |
-| `OCR_CTX_SIZE` | `16384` | Context window size |
+| `OCR_CTX_SIZE` | `32768` | Context window size |
 | `OCR_PARALLEL` | `2` | Concurrent request slots |
 | `OCR_TEMPERATURE` | `0.02` | Sampling temperature |
 | `OCR_API_KEY` | *(empty)* | Bearer token for endpoint protection |

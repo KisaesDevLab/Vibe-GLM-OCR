@@ -115,7 +115,7 @@ All configuration is via environment variables:
 |----------|---------|-------------|
 | `OCR_PORT` | `8090` | Server listen port |
 | `OCR_THREADS` | `4` | CPU threads for inference |
-| `OCR_CTX_SIZE` | `16384` | Context window (must be >= 16384 for GLM-OCR images) |
+| `OCR_CTX_SIZE` | `32768` | Context window (must be >= 16384 for GLM-OCR images) |
 | `OCR_PARALLEL` | `2` | Concurrent request slots |
 | `OCR_TEMPERATURE` | `0.02` | Sampling temperature (keep low for OCR) |
 | `OCR_API_KEY` | *(empty)* | Bearer token for endpoint protection (optional) |

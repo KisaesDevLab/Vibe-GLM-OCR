@@ -4,7 +4,7 @@ set -e
 # Configurable via environment variables (with sensible defaults)
 PORT="${OCR_PORT:-8090}"
 THREADS="${OCR_THREADS:-4}"
-CTX_SIZE="${OCR_CTX_SIZE:-16384}"
+CTX_SIZE="${OCR_CTX_SIZE:-32768}"
 TEMPERATURE="${OCR_TEMPERATURE:-0.02}"
 PARALLEL="${OCR_PARALLEL:-2}"
 API_KEY="${OCR_API_KEY:-}"
