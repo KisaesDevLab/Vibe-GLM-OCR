@@ -7,7 +7,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: kisaesdevlab/kisaes-ocr-server
+  IMAGE_NAME: kisaesdevlab/vibe-glm-ocr
 
 jobs:
   build:

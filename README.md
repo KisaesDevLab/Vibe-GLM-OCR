@@ -8,8 +8,8 @@ Self-contained Docker image running [llama.cpp](https://github.com/ggml-org/llam
 
 ```bash
 # Pull and run
-docker pull ghcr.io/kisaesdevlab/kisaes-ocr-server:latest
-docker run -p 8090:8090 ghcr.io/kisaesdevlab/kisaes-ocr-server:latest
+docker pull ghcr.io/kisaesdevlab/vibe-glm-ocr:latest
+docker run -p 8090:8090 ghcr.io/kisaesdevlab/vibe-glm-ocr:latest
 
 # Check health
 curl http://localhost:8090/health
@@ -35,8 +35,8 @@ curl -s http://localhost:8090/v1/chat/completions \
 
 ```bash
 # Clone and build
-git clone https://github.com/KisaesDevLab/kisaes-ocr-server.git
-cd kisaes-ocr-server
+git clone https://github.com/KisaesDevLab/Vibe-GLM-OCR.git
+cd Vibe-GLM-OCR
 docker compose -f docker-compose.dev.yml build
 
 # Run locally
@@ -128,7 +128,7 @@ docker run -p 9090:9090 \
   -e OCR_THREADS=8 \
   -e OCR_PARALLEL=4 \
   -e OCR_API_KEY=my-secret-key \
-  ghcr.io/kisaesdevlab/kisaes-ocr-server:latest
+  ghcr.io/kisaesdevlab/vibe-glm-ocr:latest
 ```
 
 ## Architecture
@@ -183,7 +183,7 @@ F16 is chosen for the decoder because at only 0.9B parameters, the size differen
 For bandwidth-constrained deployments, a `:slim` tag using the Q8_0 decoder (~950 MB vs 1.79 GB) reduces the compressed image by roughly 700 MB. Accuracy loss is minimal for printed documents; for handwritten notes or faint scans, stick with the default F16 tag.
 
 ```bash
-docker pull ghcr.io/kisaesdevlab/kisaes-ocr-server:slim
+docker pull ghcr.io/kisaesdevlab/vibe-glm-ocr:slim
 ```
 
 To build slim locally, override the decoder filename in a fork of the Dockerfile's `model-fetcher` stage (`GLM-OCR-Q8_0.gguf`) and update the entrypoint's `--model` path.
@@ -201,7 +201,7 @@ docker run -p 8090:8090 \
   --log-driver json-file \
   --log-opt max-size=50m \
   --log-opt max-file=5 \
-  ghcr.io/kisaesdevlab/kisaes-ocr-server:latest
+  ghcr.io/kisaesdevlab/vibe-glm-ocr:latest
 ```
 
 Compose:
@@ -209,7 +209,7 @@ Compose:
 ```yaml
 services:
   ocr-server:
-    image: ghcr.io/kisaesdevlab/kisaes-ocr-server:latest
+    image: ghcr.io/kisaesdevlab/vibe-glm-ocr:latest
     logging:
       driver: json-file
       options:
