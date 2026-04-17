@@ -228,4 +228,4 @@ Host-wide default lives in `/etc/docker/daemon.json`:
 
 ## License
 
-BSL 1.1 (Dockerfile, entrypoint scripts, and repository code). GLM-OCR model is MIT licensed. llama.cpp is MIT licensed.
+MIT (Dockerfile, entrypoint scripts, and repository code). GLM-OCR model is MIT licensed. llama.cpp is MIT licensed.

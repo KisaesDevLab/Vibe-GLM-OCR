@@ -4,7 +4,7 @@
 **Repository**: `KisaesDevLab/kisaes-ocr-server`
 **Purpose**: Self-contained Docker image running llama.cpp server with GLM-OCR, providing an OpenAI-compatible OCR endpoint
 **Target hardware**: x86_64 mini PCs and servers (CPU-only inference, no discrete GPU required)
-**License**: MIT (GLM-OCR model) · MIT (llama.cpp) · BSL 1.1 (Dockerfile, entrypoint scripts, and repository code)
+**License**: MIT (GLM-OCR model) · MIT (llama.cpp) · MIT (Dockerfile, entrypoint scripts, and repository code)
 
 ---
 
@@ -285,7 +285,7 @@ Standard OpenAI chat completion response. OCR text is in `choices[0].message.con
 ### Phase 1 — Repository & Dockerfile (Day 1)
 
 1. Create repository `KisaesDevLab/kisaes-ocr-server`
-2. Add `README.md`, `LICENSE` (BSL 1.1), `.gitignore`, `.dockerignore`
+2. Add `README.md`, `LICENSE` (MIT), `.gitignore`, `.dockerignore`
 3. Write `Dockerfile` (§4)
 4. Write `entrypoint.sh` (§5)
 5. Write `docker-compose.dev.yml` for local testing:
