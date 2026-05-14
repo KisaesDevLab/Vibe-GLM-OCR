@@ -43,6 +43,47 @@ docker compose -f docker-compose.dev.yml build
 docker compose -f docker-compose.dev.yml up
 ```
 
+## GPU support (`:latest-cuda`)
+
+The default `:latest` image is CPU-only. For ~25× faster inference
+(40-60s/page → 2-3s/page per the resource table below) on hosts with
+an NVIDIA GPU, pull the CUDA variant:
+
+```bash
+docker pull ghcr.io/kisaesdevlab/vibe-glm-ocr:latest-cuda
+
+docker run --gpus all -p 8090:8090 \
+  -e OCR_GPU_LAYERS=99 \
+  ghcr.io/kisaesdevlab/vibe-glm-ocr:latest-cuda
+```
+
+`OCR_GPU_LAYERS=99` tells llama.cpp to offload every model layer to the
+GPU. The default is `0` (CPU-only) so the same entrypoint works on the
+plain `:latest` image without modification — set it explicitly on the
+CUDA image.
+
+**Prerequisites on the host:**
+
+1. NVIDIA driver installed: `nvidia-smi` returns a device table.
+2. `nvidia-container-toolkit` installed and configured:
+   ```bash
+   sudo apt-get install -y nvidia-container-toolkit
+   sudo nvidia-ctk runtime configure --runtime=docker
+   sudo systemctl restart docker
+   ```
+   Verify: `docker run --rm --gpus all nvidia/cuda:12.4.0-base-ubuntu22.04 nvidia-smi` prints the same table as the host.
+
+**Image size:** ~5 GB on disk (vs ~2.1 GB for `:latest`). The CUDA
+runtime base alone is ~2.5 GB; the model files contribute another ~2 GB.
+
+**Tags published:** `:latest-cuda`, `:vX.Y.Z-cuda`, `:sha-<sha>-cuda`,
+and `:main-cuda` — same scheme as the CPU variant with a `-cuda`
+suffix.
+
+Running the CUDA image without `--gpus all` is wasteful but not
+broken — `OCR_GPU_LAYERS=0` keeps everything on CPU. If the host has
+no GPU at all, prefer the smaller `:latest` image.
+
 ## OCR Prompts
 
 GLM-OCR supports two primary prompt modes:
@@ -119,6 +160,7 @@ All configuration is via environment variables:
 | `OCR_PARALLEL` | `2` | Concurrent request slots |
 | `OCR_TEMPERATURE` | `0.02` | Sampling temperature (keep low for OCR) |
 | `OCR_API_KEY` | *(empty)* | Bearer token for endpoint protection (optional) |
+| `OCR_GPU_LAYERS` | `0` | GPU layers to offload. Only meaningful on the `:latest-cuda` image. Set to `99` (or any value ≥ the model's layer count) to offload everything. Default `0` keeps the same entrypoint working on the CPU image. |
 
 ### Example with custom config
 
